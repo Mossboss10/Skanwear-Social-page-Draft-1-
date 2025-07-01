@@ -165,6 +165,7 @@ const feedPosts = [
 // FEED
 function renderFeed() {
   const feed = document.getElementById('feedPosts');
+  if (!feed) return;
   feed.innerHTML = '';
   feedPosts.forEach((post, i) => {
     const user = contacts[post.userIdx];
@@ -205,6 +206,7 @@ function renderFeed() {
 // COMPANIES
 function renderCompanies() {
   const list = document.querySelector('.companies-list');
+  if (!list) return;
   list.innerHTML = '';
   companies.forEach((comp, i) => {
     const el = document.createElement('div');
@@ -216,7 +218,8 @@ function renderCompanies() {
     el.onclick = () => showCompanyEmployees(comp.name);
     list.appendChild(el);
   });
-  document.getElementById('companyEmployees').innerHTML = "";
+  const employeesDiv = document.getElementById('companyEmployees');
+  if (employeesDiv) employeesDiv.innerHTML = "";
 }
 
 // COMPANY EMPLOYEES
@@ -245,6 +248,7 @@ function showCompanyEmployees(companyName) {
 // CONTACTS
 function renderContacts() {
   const grid = document.querySelector('.contacts-grid');
+  if (!grid) return;
   grid.innerHTML = '';
   contacts.forEach((c, i) => {
     const el = document.createElement('div');
@@ -314,55 +318,6 @@ const sidebar = document.getElementById('sidebar');
 const sidebarToggle = document.getElementById('sidebarToggle');
 const sidebarOverlay = document.getElementById('sidebarOverlay');
 const mainContent = document.getElementById('mainContent');
-function toggleSidebar(forceOpen) {
-  if(forceOpen === true) {
-    sidebar.classList.add('open');
-    mainContent.style.marginLeft = '';
-    sidebarOverlay.style.display = 'none';
-    return;
-  }
-  if (sidebar.classList.contains('open')) {
-    sidebar.classList.remove('open');
-    sidebarOverlay.style.display = window.innerWidth <= 800 ? 'block' : 'none';
-  } else {
-    sidebar.classList.add('open');
-    sidebarOverlay.style.display = 'none';
-  }
-}
-sidebarToggle.onclick = () => toggleSidebar();
-sidebarOverlay.onclick = () => toggleSidebar(true);
-// Expand sidebar on desktop by default
-if(window.innerWidth > 800) sidebar.classList.add('open');
-// Collapse sidebar on mobile by default
-if(window.innerWidth <= 800) sidebar.classList.remove('open');
-window.addEventListener('resize', () => {
-  if(window.innerWidth > 800) toggleSidebar(true);
-  else sidebar.classList.remove('open');
-});
-
-// INITIAL RENDER
-renderFeed();
-renderCompanies();
-renderContacts();
-
-// Add Profile (Demo)
-document.getElementById('addProfileBtn').onclick = () => {
-  alert('Profile creation form coming soon!');
-};
-// Add Post (Demo)
-document.getElementById('addPostBtn').onclick = () => {
-  alert('Add post feature coming soon!');
-};
-
-// Expose for inline event
-window.showContactDetail = showContactDetail;
-window.renderCompanies = renderCompanies;
-
-// Sidebar Toggle Logic
-const sidebar = document.getElementById('sidebar');
-const sidebarToggle = document.getElementById('sidebarToggle');
-const sidebarOverlay = document.getElementById('sidebarOverlay');
-const mainContent = document.getElementById('mainContent');
 
 function isMobile() {
   return window.innerWidth <= 800;
@@ -392,6 +347,7 @@ sidebarToggle.onclick = function() {
 
 sidebarOverlay.onclick = closeSidebar;
 
+// Responsive behavior
 window.addEventListener('resize', function() {
   if (isMobile()) {
     closeSidebar();
@@ -400,10 +356,27 @@ window.addEventListener('resize', function() {
   }
 });
 
+// On first load
 if (isMobile()) {
   closeSidebar();
 } else {
   openSidebar();
 }
 
-// ... rest of your app JS for navigation, rendering, etc ...
+// INITIAL RENDER
+renderFeed();
+renderCompanies();
+renderContacts();
+
+// Add Profile (Demo)
+document.getElementById('addProfileBtn').onclick = () => {
+  alert('Profile creation form coming soon!');
+};
+// Add Post (Demo)
+document.getElementById('addPostBtn').onclick = () => {
+  alert('Add post feature coming soon!');
+};
+
+// Expose for inline event
+window.showContactDetail = showContactDetail;
+window.renderCompanies = renderCompanies;
