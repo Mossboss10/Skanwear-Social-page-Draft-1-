@@ -96,28 +96,117 @@ const companies = [
   }
 ];
 
-const posts = [
+// Demo images for feed (unsplash or random, you can swap for SKANWEAR shots)
+const demoFeedImages = [
+  "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?fit=crop&w=800&q=80",
+];
+
+const feedPosts = [
+  // Each post is a user, a photo, and a caption
   {
-    author: "Sarah Johnson",
-    role: "Safety Manager",
-    location: "London",
-    photo: "https://randomuser.me/api/portraits/women/69.jpg",
-    body: "Just completed an installation with the new SKANWEAR® Pro series. The arc flash protection is incredible and the comfort level is unmatched!",
+    userIdx: 0,
+    img: demoFeedImages[0],
+    caption: "Just completed a challenging project using SKANWEAR® gear on site! 🔥 #SafetyFirst",
     likes: 42,
-    comments: 8
+    comments: 8,
+    liked: false,
+    time: "2h"
   },
   {
-    author: "Alan Eijk",
-    role: "Engineer",
-    location: "New Mexico",
-    photo: "https://randomuser.me/api/portraits/men/52.jpg",
-    body: "Shared my experience on the latest safety challenge. Proud to be part of the SKANWEAR® community!",
+    userIdx: 1,
+    img: demoFeedImages[1],
+    caption: "Loving the comfort of the Pro Series. Great day out with the team 🚧",
     likes: 29,
-    comments: 5
+    comments: 5,
+    liked: false,
+    time: "4h"
+  },
+  {
+    userIdx: 2,
+    img: demoFeedImages[2],
+    caption: "Weekly challenge complete! SKANWEAR® never lets me down.",
+    likes: 23,
+    comments: 2,
+    liked: false,
+    time: "6h"
+  },
+  {
+    userIdx: 3,
+    img: demoFeedImages[3],
+    caption: "Safety training at Company B. Proud of the whole crew.",
+    likes: 13,
+    comments: 1,
+    liked: false,
+    time: "8h"
+  },
+  {
+    userIdx: 4,
+    img: demoFeedImages[4],
+    caption: "Operations running smooth in Santa Ana. #skanwear #community",
+    likes: 19,
+    comments: 3,
+    liked: false,
+    time: "1d"
+  },
+  {
+    userIdx: 5,
+    img: demoFeedImages[5],
+    caption: "Exploring new sites with the best protection.",
+    likes: 15,
+    comments: 1,
+    liked: false,
+    time: "2d"
   }
 ];
 
-// Populate Contacts
+// ----------------- FEED RENDER -----------------
+function renderFeed() {
+  const feed = document.getElementById('feedPosts');
+  feed.innerHTML = '';
+  feedPosts.forEach((post, i) => {
+    const user = contacts[post.userIdx];
+    const el = document.createElement('div');
+    el.className = 'insta-post';
+    el.innerHTML = `
+      <div class="insta-post-header">
+        <img src="${user.photo}" alt="${user.name}">
+        <div>
+          <div class="insta-post-author">${user.name}</div>
+          <div class="insta-post-info">${user.role} · ${user.company} · ${post.time} ago</div>
+        </div>
+      </div>
+      <img class="insta-post-img" src="${post.img}" alt="Post image">
+      <div class="insta-post-body">${post.caption}</div>
+      <div class="insta-post-actions">
+        <span class="like-btn${post.liked ? " liked" : ""}" data-idx="${i}">❤️ ${post.likes}</span>
+        <span>💬 ${post.comments}</span>
+        <span>🔗 Share</span>
+      </div>
+    `;
+    // Click avatar or name to open profile popup
+    el.querySelector('.insta-post-header img').onclick = () => showProfile(post.userIdx);
+    el.querySelector('.insta-post-author').onclick = () => showProfile(post.userIdx);
+    // Like button
+    el.querySelector('.like-btn').onclick = function() {
+      if (post.liked) {
+        post.liked = false;
+        post.likes--;
+      } else {
+        post.liked = true;
+        post.likes++;
+      }
+      renderFeed();
+    };
+    feed.appendChild(el);
+  });
+}
+
+// ----------------- CONTACTS RENDER -----------------
 function renderContacts() {
   const grid = document.querySelector('.contacts-grid');
   grid.innerHTML = '';
@@ -134,7 +223,7 @@ function renderContacts() {
   });
 }
 
-// Populate Companies
+// ----------------- COMPANIES RENDER -----------------
 function renderCompanies() {
   const list = document.querySelector('.companies-list');
   list.innerHTML = '';
@@ -150,7 +239,7 @@ function renderCompanies() {
   });
 }
 
-// Show Company Employees
+// ----------------- SHOW COMPANY EMPLOYEES -----------------
 function showCompany(companyName) {
   const employees = contacts.filter(c => c.company === companyName);
   let html = `<h2>Employees at ${companyName}</h2>`;
@@ -174,33 +263,7 @@ function showCompany(companyName) {
   `;
 }
 
-// Populate Feed Posts
-function renderPosts() {
-  const list = document.querySelector('.posts-list');
-  list.innerHTML = '';
-  posts.forEach(post => {
-    const el = document.createElement('div');
-    el.className = 'post-card glass';
-    el.innerHTML = `
-      <div class="post-header">
-        <img src="${post.photo}" alt="${post.author}"/>
-        <div class="post-details">
-          <span class="post-author">${post.author}</span>
-          <div class="post-role-location">${post.role} • ${post.location}</div>
-        </div>
-      </div>
-      <div class="post-body">${post.body}</div>
-      <div class="post-actions">
-        <span>👍 ${post.likes}</span>
-        <span>💬 ${post.comments}</span>
-        <span>🔗 Share</span>
-      </div>
-    `;
-    list.appendChild(el);
-  });
-}
-
-// Show Profile Popup
+// ----------------- PROFILE POPUP -----------------
 function showProfile(idx) {
   const c = contacts[idx];
   document.getElementById('profileImg').src = c.photo;
@@ -227,20 +290,24 @@ document.getElementById('closeProfile').onclick = () => {
   document.getElementById('profilePopup').classList.add('hidden');
 };
 
-// Navigation
+// Sidebar Navigation
 document.querySelectorAll('.sidebar nav ul li').forEach(el => {
   el.onclick = function() {
     document.querySelectorAll('.sidebar nav ul li').forEach(li => li.classList.remove('active'));
     this.classList.add('active');
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(this.dataset.page + 'Page').classList.add('active');
+    document.getElementById(this.dataset.page).classList.add('active');
+    // If companies, reset companies content
+    if (this.dataset.page === "companiesPage") renderCompanies();
+    // If contacts, reset contacts search
+    if (this.dataset.page === "contactsPage") renderContacts();
   };
 });
 
 // Initial render
+renderFeed();
 renderContacts();
 renderCompanies();
-renderPosts();
 
 // Search filters
 document.getElementById('searchContacts').oninput = function() {
@@ -288,6 +355,10 @@ document.getElementById('addContactBtn').onclick = () => {
 };
 document.getElementById('addCompanyBtn').onclick = () => {
   alert('Add company feature coming soon!');
+};
+// Add Post (Demo)
+document.getElementById('addPostBtn').onclick = () => {
+  alert('Add post feature coming soon!');
 };
 
 // Expose showProfile for inline onclick
