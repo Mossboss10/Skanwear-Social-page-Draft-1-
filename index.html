@@ -15,9 +15,9 @@
     </div>
     <nav>
       <ul>
-        <li class="active" data-page="contacts"><span>👤</span>Contacts</li>
-        <li data-page="companies"><span>💼</span>Companies</li>
-        <li data-page="feed"><span>📰</span>Feed</li>
+        <li data-page="feedPage" class="active"><span>🏠</span>Feed</li>
+        <li data-page="contactsPage"><span>👤</span>Contacts</li>
+        <li data-page="companiesPage"><span>💼</span>Companies</li>
       </ul>
     </nav>
     <button id="addProfileBtn" class="add-btn glass">+ Add Profile</button>
@@ -25,8 +25,47 @@
 
   <!-- Main Content -->
   <main>
+    <!-- Feed Page -->
+    <section id="feedPage" class="page active">
+      <header class="feed-header">
+        <h1>Feed</h1>
+        <button class="add-btn glass" id="addPostBtn">+ Post</button>
+      </header>
+      <!-- Stories Bar (optional, like Instagram) -->
+      <div class="stories-bar glass">
+        <div class="story">
+          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Story user"/>
+          <span>Christina</span>
+        </div>
+        <div class="story">
+          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Story user"/>
+          <span>Bobby</span>
+        </div>
+        <div class="story">
+          <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Story user"/>
+          <span>Elina</span>
+        </div>
+        <div class="story">
+          <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Story user"/>
+          <span>Derek</span>
+        </div>
+        <div class="story">
+          <img src="https://randomuser.me/api/portraits/women/60.jpg" alt="Story user"/>
+          <span>Christiana</span>
+        </div>
+        <div class="story">
+          <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Story user"/>
+          <span>Alan</span>
+        </div>
+      </div>
+      <!-- Demo Posts Feed -->
+      <div id="feedPosts" class="insta-feed">
+        <!-- Posts populated by JS -->
+      </div>
+    </section>
+
     <!-- Contacts Page -->
-    <section id="contactsPage" class="page active">
+    <section id="contactsPage" class="page">
       <header>
         <h1>Contacts</h1>
         <input class="glass" type="text" placeholder="Search contacts..." id="searchContacts"/>
@@ -46,35 +85,6 @@
       </header>
       <div class="companies-list">
         <!-- Company Cards Populated by JS -->
-      </div>
-    </section>
-
-    <!-- Feed Page -->
-    <section id="feedPage" class="page">
-      <header>
-        <h1>Community Feed</h1>
-      </header>
-      <!-- Weekly Challenge -->
-      <div class="card glass challenge">
-        <h2>Weekly Challenge <span class="tag active">Active</span></h2>
-        <p>Share a photo of your SKANWEAR® gear in action on a job site.</p>
-        <div class="progress-bar">
-          <div class="progress" style="width:60%"></div>
-        </div>
-        <p class="small">7 days remaining</p>
-        <button class="add-btn glass">Submit Photo</button>
-      </div>
-      <!-- Share Box -->
-      <div class="card glass share-box">
-        <h3>Share with the Community</h3>
-        <textarea placeholder="What would you like to share?"></textarea>
-        <div>
-          <button class="add-btn glass">Post</button>
-        </div>
-      </div>
-      <!-- Demo Posts -->
-      <div class="posts-list">
-        <!-- Posts Populated by JS -->
       </div>
     </section>
   </main>
