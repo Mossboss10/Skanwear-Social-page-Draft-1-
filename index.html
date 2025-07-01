@@ -8,7 +8,7 @@
 </head>
 <body>
   <!-- Sidebar Navigation -->
-  <aside id="sidebar" class="sidebar glass open">
+  <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo-wrap">
         <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,h_225,c_limit/https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fglide-prod.appspot.com%2Fo%2Ficon-images%252Fanonymous-ffba51fe-f9de-4950-ab3f-a7653a0a8e55.png%3Falt%3Dmedia%26token%3De6c193e1-b95e-4a2b-adc3-40c9cbe05c9f"
@@ -24,34 +24,26 @@
         <li data-page="feedPage" class="active glass-nav">
           <span>🏠</span>
           <span class="nav-label">Feed</span>
-          <span class="nav-tooltip">Feed</span>
         </li>
         <li data-page="contactsPage" class="glass-nav">
           <span>👤</span>
           <span class="nav-label">Contacts</span>
-          <span class="nav-tooltip">Contacts</span>
         </li>
         <li data-page="companiesPage" class="glass-nav">
           <span>💼</span>
           <span class="nav-label">Companies</span>
-          <span class="nav-tooltip">Companies</span>
         </li>
       </ul>
     </nav>
     <button id="addProfileBtn" class="add-btn glass sidebar-btn">+ Add Profile</button>
   </aside>
-
-  <!-- Overlay for mobile sidebar -->
-  <div id="sidebarOverlay" class="sidebar-overlay"></div>
-
   <main id="mainContent">
-    <!-- Feed Page -->
     <section id="feedPage" class="page active">
       <header class="feed-header">
         <h1>Feed</h1>
         <button class="add-btn glass" id="addPostBtn">+ Post</button>
       </header>
-      <div class="stories-bar glass">
+      <div class="stories-bar">
         <div class="story">
           <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Story user"/>
           <span>Christina</span>
@@ -79,22 +71,16 @@
       </div>
       <div id="feedPosts" class="insta-feed"></div>
     </section>
-
-    <!-- Contacts Page -->
     <section id="contactsPage" class="page">
       <header>
         <h1>Contacts</h1>
       </header>
       <div class="contacts-grid"></div>
     </section>
-
-    <!-- Contact Detail Page (hidden until open) -->
     <section id="contactDetailPage" class="page contact-detail-page">
       <button id="backToContacts" class="add-btn glass" style="margin-bottom:18px;">← Back to Contacts</button>
       <div id="contactDetailContent"></div>
     </section>
-
-    <!-- Companies Page -->
     <section id="companiesPage" class="page">
       <header>
         <h1>Companies</h1>
