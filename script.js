@@ -357,3 +357,53 @@ document.getElementById('addPostBtn').onclick = () => {
 // Expose for inline event
 window.showContactDetail = showContactDetail;
 window.renderCompanies = renderCompanies;
+
+// Sidebar Toggle Logic
+const sidebar = document.getElementById('sidebar');
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+const mainContent = document.getElementById('mainContent');
+
+function isMobile() {
+  return window.innerWidth <= 800;
+}
+
+function openSidebar() {
+  sidebar.classList.add('open');
+  if (isMobile()) {
+    sidebarOverlay.style.display = 'block';
+  } else {
+    sidebarOverlay.style.display = 'none';
+  }
+}
+
+function closeSidebar() {
+  sidebar.classList.remove('open');
+  sidebarOverlay.style.display = 'none';
+}
+
+sidebarToggle.onclick = function() {
+  if (sidebar.classList.contains('open')) {
+    closeSidebar();
+  } else {
+    openSidebar();
+  }
+};
+
+sidebarOverlay.onclick = closeSidebar;
+
+window.addEventListener('resize', function() {
+  if (isMobile()) {
+    closeSidebar();
+  } else {
+    openSidebar();
+  }
+});
+
+if (isMobile()) {
+  closeSidebar();
+} else {
+  openSidebar();
+}
+
+// ... rest of your app JS for navigation, rendering, etc ...
