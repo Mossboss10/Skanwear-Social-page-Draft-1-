@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SKANWEAR® Community</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar glass">
+    <div class="brand">
+      <img src="https://i.imgur.com/3v8o9pH.png" alt="SKANWEAR logo" class="logo"/>
+      <h2>SKANWEAR®</h2>
+    </div>
+    <nav>
+      <ul>
+        <li class="active" data-page="contacts"><span>👤</span>Contacts</li>
+        <li data-page="companies"><span>💼</span>Companies</li>
+        <li data-page="feed"><span>📰</span>Feed</li>
+      </ul>
+    </nav>
+    <button id="addProfileBtn" class="add-btn glass">+ Add Profile</button>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Contacts Page -->
+    <section id="contactsPage" class="page active">
+      <header>
+        <h1>Contacts</h1>
+        <input class="glass" type="text" placeholder="Search contacts..." id="searchContacts"/>
+        <button class="add-btn glass" id="addContactBtn">+ Add</button>
+      </header>
+      <div class="contacts-grid">
+        <!-- Contact Cards Populated by JS -->
+      </div>
+    </section>
+
+    <!-- Companies Page -->
+    <section id="companiesPage" class="page">
+      <header>
+        <h1>Companies</h1>
+        <input class="glass" type="text" placeholder="Search companies..." id="searchCompanies"/>
+        <button class="add-btn glass" id="addCompanyBtn">+ Add</button>
+      </header>
+      <div class="companies-list">
+        <!-- Company Cards Populated by JS -->
+      </div>
+    </section>
+
+    <!-- Feed Page -->
+    <section id="feedPage" class="page">
+      <header>
+        <h1>Community Feed</h1>
+      </header>
+      <!-- Weekly Challenge -->
+      <div class="card glass challenge">
+        <h2>Weekly Challenge <span class="tag active">Active</span></h2>
+        <p>Share a photo of your SKANWEAR® gear in action on a job site.</p>
+        <div class="progress-bar">
+          <div class="progress" style="width:60%"></div>
+        </div>
+        <p class="small">7 days remaining</p>
+        <button class="add-btn glass">Submit Photo</button>
+      </div>
+      <!-- Share Box -->
+      <div class="card glass share-box">
+        <h3>Share with the Community</h3>
+        <textarea placeholder="What would you like to share?"></textarea>
+        <div>
+          <button class="add-btn glass">Post</button>
+        </div>
+      </div>
+      <!-- Demo Posts -->
+      <div class="posts-list">
+        <!-- Posts Populated by JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Profile Popup -->
+  <div id="profilePopup" class="glass popup hidden">
+    <button id="closeProfile" class="close-btn">&times;</button>
+    <div class="profile-info">
+      <img id="profileImg" src="" alt="Profile"/>
+      <h3 id="profileName"></h3>
+      <span id="profileRole"></span>
+      <span id="profileCompany"></span>
+      <span id="profileLocation"></span>
+      <div id="profileBio"></div>
+      <div class="profile-stats">
+        <span><b id="profilePosts"></b> Posts</span>
+        <span><b id="profileRank"></b> Rank</span>
+        <span><b id="profileChallenges"></b> Challenges</span>
+      </div>
+    </div>
+    <div class="profile-recent-posts">
+      <h4>Recent Posts</h4>
+      <ul id="profilePostsList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
