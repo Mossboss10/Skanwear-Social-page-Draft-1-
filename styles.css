@@ -1,11 +1,12 @@
 :root {
   --red: #D44A3D;
-  --glass-bg: rgba(255,255,255,0.23);
+  --sidebar-width: 250px;
+  --sidebar-width-collapsed: 60px;
+  --glass-bg: rgba(255,255,255,0.21);
   --glass-blur: blur(14px);
-  --sidebar-width: 230px;
   --shadow: 0 12px 32px rgba(0,0,0,0.09);
   --radius: 18px;
-  --transition: 0.25s;
+  --transition: 0.28s cubic-bezier(.4,0,.2,1);
   --font: 'Segoe UI', Arial, sans-serif;
 }
 
@@ -17,6 +18,7 @@ body {
   display: flex;
 }
 
+/* Sidebar */
 .glass {
   background: var(--glass-bg);
   box-shadow: var(--shadow);
@@ -24,35 +26,77 @@ body {
   backdrop-filter: var(--glass-blur);
   border: 1px solid rgba(255,255,255,0.44);
 }
-
 .sidebar {
   width: var(--sidebar-width);
   min-width: var(--sidebar-width);
+  max-width: var(--sidebar-width);
   height: 100vh;
-  padding: 24px 16px;
+  padding: 0 0 24px 0;
   background: rgba(212,74,61,0.32);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   position: fixed;
   left: 0; top: 0; bottom: 0;
-  z-index: 2;
+  z-index: 11;
+  transition: width var(--transition);
+  overflow-x: hidden;
 }
-
-.brand {
+.sidebar:not(.open) {
+  width: var(--sidebar-width-collapsed);
+  min-width: var(--sidebar-width-collapsed);
+  max-width: var(--sidebar-width-collapsed);
+}
+.sidebar:not(.open) .brand-name,
+.sidebar:not(.open) .add-btn,
+.sidebar:not(.open) nav ul li span:not(:first-child) {
+  display: none !important;
+}
+.sidebar-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 32px;
+  width: 100%;
+  padding: 18px 12px 16px 18px;
 }
-
 .logo {
   width: 38px; height: 38px;
   object-fit: contain;
   border-radius: 12px;
   background: #fff;
+  flex-shrink: 0;
 }
-
+.brand-name {
+  font-weight: 700;
+  color: var(--red);
+  font-size: 1.18em;
+  flex: 1;
+  white-space: nowrap;
+}
+.sidebar-toggle {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 32px;
+  width: 32px;
+  justify-content: center;
+}
+.sidebar-toggle span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background: var(--red);
+  border-radius: 2px;
+  transition: all 0.23s;
+}
+.sidebar nav {
+  width: 100%;
+}
 .sidebar nav ul {
   list-style: none;
   padding: 0;
@@ -60,23 +104,33 @@ body {
   width: 100%;
 }
 .sidebar nav ul li {
-  padding: 12px 18px;
-  margin-bottom: 6px;
+  padding: 12.5px 18px;
+  margin: 7px 0;
   border-radius: 11px;
   font-weight: 500;
   color: #222;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 9px;
-  font-size: 1.1em;
+  gap: 13px;
+  font-size: 1.08em;
   transition: background var(--transition), color var(--transition);
 }
 .sidebar nav ul li.active, .sidebar nav ul li:hover {
   background: var(--red);
   color: #fff;
 }
-
+.sidebar nav ul li span:first-child {
+  font-size: 1.16em;
+}
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  transition: opacity 0.22s;
+}
 .add-btn {
   background: var(--red);
   color: #fff;
@@ -84,48 +138,30 @@ body {
   font-size: 1em;
   border-radius: 9px;
   padding: 8px 16px;
-  margin-top: 18px;
+  margin: 18px 0 0 18px;
   cursor: pointer;
   transition: background 0.23s;
   box-shadow: 0 4px 24px rgba(212,74,61,0.12);
 }
 .add-btn:hover { background: #a82e20; }
-
 main {
   margin-left: var(--sidebar-width);
-  padding: 32px 36px;
+  padding: 32px 4vw 32px 4vw;
   flex: 1;
   width: 100%;
+  transition: margin-left var(--transition);
+  min-height: 100vh;
 }
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 14px;
-  margin-bottom: 28px;
+.sidebar:not(.open) ~ #mainContent {
+  margin-left: var(--sidebar-width-collapsed);
 }
-header h1 {
-  flex: 0 0 auto;
-  font-size: 2em;
-}
-header input[type=text] {
-  flex: 1 1 250px;
-  min-width: 180px;
-  padding: 8px 14px;
-  margin-left: 16px;
-  font-size: 1em;
-  outline: none;
-  border: none;
-}
-
-.feed-header {
-  justify-content: space-between;
-}
-
 .page { display: none; }
 .page.active { display: block; }
-
+.feed-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 28px;
+}
+.feed-header h1 { font-size: 2em; }
 .stories-bar {
   display: flex;
   gap: 18px;
@@ -152,7 +188,6 @@ header input[type=text] {
   color: #333;
   margin-top: 1px;
 }
-
 .insta-feed {
   display: flex;
   flex-direction: column;
@@ -160,7 +195,6 @@ header input[type=text] {
   max-width: 550px;
   margin: 0 auto;
 }
-
 .insta-post {
   background: rgba(255,255,255,0.81);
   border-radius: 17px;
@@ -168,7 +202,6 @@ header input[type=text] {
   border: 1.5px solid rgba(212,74,61,0.13);
   padding: 0 0 15px 0;
   overflow: hidden;
-  margin-bottom: 0;
 }
 .insta-post-header {
   display: flex;
@@ -185,6 +218,7 @@ header input[type=text] {
 }
 .insta-post-author {
   font-weight: 600;
+  cursor: pointer;
 }
 .insta-post-info {
   font-size: 0.97em;
@@ -218,48 +252,6 @@ header input[type=text] {
 .insta-post-actions span.liked {
   color: var(--red);
 }
-
-.contacts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 28px;
-  margin-bottom: 32px;
-}
-
-.contact-card {
-  padding: 18px 12px 12px 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 16px;
-  transition: box-shadow 0.2s;
-  background: rgba(255,255,255,0.33);
-  box-shadow: 0 3px 14px rgba(212,74,61,0.08);
-  border: 1.5px solid rgba(212,74,61,0.16);
-}
-.contact-card:hover {
-  box-shadow: 0 8px 28px rgba(212,74,61,0.13);
-}
-
-.contact-photo {
-  width: 76px; height: 76px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 12px;
-  border: 3px solid var(--red);
-  background: #fff;
-}
-.contact-name {
-  font-weight: 600;
-  font-size: 1.06em;
-  margin-bottom: 2px;
-}
-.contact-company {
-  font-size: 0.97em;
-  color: #6a6a6a;
-}
-
 .companies-list {
   display: flex;
   flex-direction: column;
@@ -288,85 +280,135 @@ header input[type=text] {
   color: #818181;
   font-size: 0.97em;
 }
-
-.popup {
-  position: fixed;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  min-width: 320px;
-  max-width: 97vw;
-  background: rgba(255,255,255,0.96);
-  padding: 24px 28px 16px 28px;
-  border-radius: 20px;
-  box-shadow: 0 8px 46px rgba(212,74,61,0.18);
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 28px;
+  margin-bottom: 32px;
+}
+.contact-card {
+  padding: 18px 12px 12px 12px;
   display: flex;
   flex-direction: column;
-  gap: 13px;
-  animation: fadeIn 0.25s;
-}
-.popup.hidden { display: none; }
-.close-btn {
-  position: absolute;
-  right: 18px; top: 12px;
-  font-size: 2em;
-  background: none;
-  border: none;
-  color: var(--red);
+  align-items: center;
   cursor: pointer;
+  border-radius: 16px;
+  transition: box-shadow 0.2s;
+  background: rgba(255,255,255,0.33);
+  box-shadow: 0 3px 14px rgba(212,74,61,0.08);
+  border: 1.5px solid rgba(212,74,61,0.16);
 }
-.profile-info {
+.contact-card:hover {
+  box-shadow: 0 8px 28px rgba(212,74,61,0.13);
+}
+.contact-photo {
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border: 3px solid var(--red);
+  background: #fff;
+}
+.contact-name {
+  font-weight: 600;
+  font-size: 1.06em;
+  margin-bottom: 2px;
+}
+.contact-company {
+  font-size: 0.97em;
+  color: #6a6a6a;
+}
+.contact-detail-page {
+  max-width: 630px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.contact-detail-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 28px auto;
+  background: rgba(255,255,255,0.88);
+  border-radius: 18px;
+  box-shadow: 0 2px 20px rgba(212,74,61,0.11);
+  padding: 32px 22px 22px 22px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.profile-info img {
-  width: 92px;
-  height: 92px;
+.contact-detail-card img {
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   border: 4px solid var(--red);
-  margin-bottom: 8px;
+  margin-bottom: 13px;
+  object-fit: cover;
 }
-.profile-info h3 { margin: 0 0 2px 0; }
-.profile-info span {
-  font-size: 1em;
-  color: #6b6b6b;
-  margin-bottom: 2px;
+.contact-detail-card h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.45em;
 }
-.profile-bio {
-  margin: 9px 0 8px 0;
+.contact-detail-meta {
+  color: #555;
+  font-size: 1.07em;
+  margin-bottom: 7px;
+}
+.contact-detail-bio {
+  margin: 9px 0 11px 0;
   text-align: center;
 }
-.profile-stats {
+.contact-detail-stats {
   display: flex;
-  gap: 13px;
-  justify-content: center;
-  margin: 9px 0 0 0;
+  gap: 18px;
+  font-size: 1.12em;
+  margin-bottom: 14px;
 }
-.profile-recent-posts {
-  margin-top: 12px;
+.contact-detail-stats span {
+  color: var(--red);
+  font-weight: 600;
 }
-.profile-recent-posts ul {
+.contact-detail-posts {
+  width: 100%;
+}
+.contact-detail-posts h3 {
+  margin: 0 0 11px 0;
+  color: var(--red);
+}
+.contact-detail-posts ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.profile-recent-posts li {
+.contact-detail-posts li {
   background: rgba(212,74,61,0.07);
   border-radius: 7px;
-  padding: 7px 11px;
-  margin-bottom: 6px;
-  font-size: 0.96em;
+  padding: 10px 15px;
+  margin-bottom: 9px;
+  font-size: 1.04em;
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px) scale(1.03);}
-  to   { opacity: 1; transform: none; }
+@media (max-width: 1100px) {
+  .insta-feed { max-width: 95vw; }
 }
-
-@media (max-width: 900px) {
-  .sidebar { display: none; }
-  main { margin-left: 0; padding: 16px 2vw; }
-  .insta-feed { max-width: 97vw; }
+@media (max-width: 800px) {
+  .sidebar {
+    width: var(--sidebar-width-collapsed) !important;
+    min-width: var(--sidebar-width-collapsed) !important;
+    max-width: var(--sidebar-width-collapsed) !important;
+  }
+  .sidebar.open {
+    width: var(--sidebar-width) !important;
+    min-width: var(--sidebar-width) !important;
+    max-width: var(--sidebar-width) !important;
+  }
+  main {
+    margin-left: var(--sidebar-width-collapsed) !important;
+    padding: 18px 2vw 22px 2vw !important;
+  }
+  .sidebar:not(.open) ~ #mainContent {
+    margin-left: var(--sidebar-width-collapsed) !important;
+  }
+}
+@media (max-width: 530px) {
+  .contact-detail-card, .contact-detail-page { padding: 0 1vw; }
 }
