@@ -8,23 +8,28 @@
 </head>
 <body>
   <!-- Sidebar Navigation -->
-  <aside class="sidebar glass">
-    <div class="brand">
-      <img src="https://i.imgur.com/3v8o9pH.png" alt="SKANWEAR logo" class="logo"/>
-      <h2>SKANWEAR®</h2>
+  <aside id="sidebar" class="sidebar glass open">
+    <div class="sidebar-header">
+      <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,h_225,c_limit/https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fglide-prod.appspot.com%2Fo%2Ficon-images%252Fanonymous-ffba51fe-f9de-4950-ab3f-a7653a0a8e55.png%3Falt%3Dmedia%26token%3De6c193e1-b95e-4a2b-adc3-40c9cbe05c9f" alt="SKANWEAR logo" class="logo"/>
+      <span class="brand-name">SKANWEAR®</span>
+      <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+        <span></span><span></span><span></span>
+      </button>
     </div>
     <nav>
       <ul>
-        <li data-page="feedPage" class="active"><span>🏠</span>Feed</li>
-        <li data-page="contactsPage"><span>👤</span>Contacts</li>
-        <li data-page="companiesPage"><span>💼</span>Companies</li>
+        <li data-page="feedPage" class="active"><span>🏠</span><span>Feed</span></li>
+        <li data-page="contactsPage"><span>👤</span><span>Contacts</span></li>
+        <li data-page="companiesPage"><span>💼</span><span>Companies</span></li>
       </ul>
     </nav>
     <button id="addProfileBtn" class="add-btn glass">+ Add Profile</button>
   </aside>
 
-  <!-- Main Content -->
-  <main>
+  <!-- Overlay for mobile sidebar -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <main id="mainContent">
     <!-- Feed Page -->
     <section id="feedPage" class="page active">
       <header class="feed-header">
@@ -68,48 +73,29 @@
     <section id="contactsPage" class="page">
       <header>
         <h1>Contacts</h1>
-        <input class="glass" type="text" placeholder="Search contacts..." id="searchContacts"/>
-        <button class="add-btn glass" id="addContactBtn">+ Add</button>
       </header>
       <div class="contacts-grid">
         <!-- Contact Cards Populated by JS -->
       </div>
     </section>
 
+    <!-- Contact Detail Page (hidden until open) -->
+    <section id="contactDetailPage" class="page contact-detail-page">
+      <button id="backToContacts" class="add-btn glass" style="margin-bottom:18px;">← Back to Contacts</button>
+      <div id="contactDetailContent"></div>
+    </section>
+
     <!-- Companies Page -->
     <section id="companiesPage" class="page">
       <header>
         <h1>Companies</h1>
-        <input class="glass" type="text" placeholder="Search companies..." id="searchCompanies"/>
-        <button class="add-btn glass" id="addCompanyBtn">+ Add</button>
       </header>
       <div class="companies-list">
         <!-- Company Cards Populated by JS -->
       </div>
+      <div id="companyEmployees" style="margin-top:32px"></div>
     </section>
   </main>
-
-  <!-- Profile Popup -->
-  <div id="profilePopup" class="glass popup hidden">
-    <button id="closeProfile" class="close-btn">&times;</button>
-    <div class="profile-info">
-      <img id="profileImg" src="" alt="Profile"/>
-      <h3 id="profileName"></h3>
-      <span id="profileRole"></span>
-      <span id="profileCompany"></span>
-      <span id="profileLocation"></span>
-      <div id="profileBio"></div>
-      <div class="profile-stats">
-        <span><b id="profilePosts"></b> Posts</span>
-        <span><b id="profileRank"></b> Rank</span>
-        <span><b id="profileChallenges"></b> Challenges</span>
-      </div>
-    </div>
-    <div class="profile-recent-posts">
-      <h4>Recent Posts</h4>
-      <ul id="profilePostsList"></ul>
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>
