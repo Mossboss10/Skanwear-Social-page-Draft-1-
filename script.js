@@ -96,7 +96,6 @@ const companies = [
   }
 ];
 
-// Demo images for feed (unsplash or random, you can swap for SKANWEAR shots)
 const demoFeedImages = [
   "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1506744038136-46273834b3fb?fit=crop&w=800&q=80",
@@ -107,7 +106,6 @@ const demoFeedImages = [
 ];
 
 const feedPosts = [
-  // Each post is a user, a photo, and a caption
   {
     userIdx: 0,
     img: demoFeedImages[0],
@@ -164,7 +162,7 @@ const feedPosts = [
   }
 ];
 
-// ----------------- FEED RENDER -----------------
+// Feed Render
 function renderFeed() {
   const feed = document.getElementById('feedPosts');
   feed.innerHTML = '';
@@ -206,24 +204,7 @@ function renderFeed() {
   });
 }
 
-// ----------------- CONTACTS RENDER -----------------
-function renderContacts() {
-  const grid = document.querySelector('.contacts-grid');
-  grid.innerHTML = '';
-  contacts.forEach((c, i) => {
-    const el = document.createElement('div');
-    el.className = 'contact-card glass';
-    el.innerHTML = `
-      <img class="contact-photo" src="${c.photo}" alt="${c.name}"/>
-      <div class="contact-name">${c.name}</div>
-      <div class="contact-company">${c.company}</div>
-    `;
-    el.onclick = () => showProfile(i);
-    grid.appendChild(el);
-  });
-}
-
-// ----------------- COMPANIES RENDER -----------------
+// Companies Render
 function renderCompanies() {
   const list = document.querySelector('.companies-list');
   list.innerHTML = '';
@@ -234,36 +215,36 @@ function renderCompanies() {
       <div class="company-name">${comp.name}</div>
       <div class="company-address">${comp.address}</div>
     `;
-    el.onclick = () => showCompany(comp.name);
+    el.onclick = () => showCompanyEmployees(comp.name);
     list.appendChild(el);
   });
+  document.getElementById('companyEmployees').innerHTML = "";
 }
 
-// ----------------- SHOW COMPANY EMPLOYEES -----------------
-function showCompany(companyName) {
+// Show Employees of a Company
+function showCompanyEmployees(companyName) {
   const employees = contacts.filter(c => c.company === companyName);
-  let html = `<h2>Employees at ${companyName}</h2>`;
-  html += '<div class="contacts-grid">';
-  employees.forEach((c, i) => {
-    html += `
-      <div class="contact-card glass" onclick="showProfile(${contacts.indexOf(c)})">
-        <img class="contact-photo" src="${c.photo}" alt="${c.name}"/>
-        <div class="contact-name">${c.name}</div>
-        <div class="contact-company">${c.role}</div>
-      </div>
-    `;
-  });
-  html += '</div>';
-  document.getElementById('companiesPage').innerHTML = `
-    <header>
-      <h1>${companyName}</h1>
-      <button class="add-btn glass" onclick="renderCompanies()">← Back to Companies</button>
-    </header>
-    ${html}
-  `;
+  let html = `<h2>Contacts at ${companyName}</h2>`;
+  if (employees.length === 0) {
+    html += '<p>No contacts found for this company.</p>';
+  } else {
+    html += '<div class="contacts-grid">';
+    employees.forEach((c, i) => {
+      html += `
+        <div class="contact-card glass" onclick="showProfile(${contacts.indexOf(c)})">
+          <img class="contact-photo" src="${c.photo}" alt="${c.name}"/>
+          <div class="contact-name">${c.name}</div>
+          <div class="contact-company">${c.role}</div>
+        </div>
+      `;
+    });
+    html += '</div>';
+  }
+  html += `<button class="add-btn glass" style="margin-top:10px" onclick="renderCompanies()">← Back to Companies</button>`;
+  document.getElementById('companyEmployees').innerHTML = html;
 }
 
-// ----------------- PROFILE POPUP -----------------
+// Profile Popup
 function showProfile(idx) {
   const c = contacts[idx];
   document.getElementById('profileImg').src = c.photo;
@@ -299,62 +280,16 @@ document.querySelectorAll('.sidebar nav ul li').forEach(el => {
     document.getElementById(this.dataset.page).classList.add('active');
     // If companies, reset companies content
     if (this.dataset.page === "companiesPage") renderCompanies();
-    // If contacts, reset contacts search
-    if (this.dataset.page === "contactsPage") renderContacts();
   };
 });
 
 // Initial render
 renderFeed();
-renderContacts();
 renderCompanies();
-
-// Search filters
-document.getElementById('searchContacts').oninput = function() {
-  const q = this.value.toLowerCase();
-  const grid = document.querySelector('.contacts-grid');
-  grid.innerHTML = '';
-  contacts.filter(c => c.name.toLowerCase().includes(q) || c.company.toLowerCase().includes(q))
-    .forEach((c, i) => {
-      const el = document.createElement('div');
-      el.className = 'contact-card glass';
-      el.innerHTML = `
-        <img class="contact-photo" src="${c.photo}" alt="${c.name}"/>
-        <div class="contact-name">${c.name}</div>
-        <div class="contact-company">${c.company}</div>
-      `;
-      el.onclick = () => showProfile(i);
-      grid.appendChild(el);
-    });
-};
-
-document.getElementById('searchCompanies').oninput = function() {
-  const q = this.value.toLowerCase();
-  const list = document.querySelector('.companies-list');
-  list.innerHTML = '';
-  companies.filter(c => c.name.toLowerCase().includes(q) || c.address.toLowerCase().includes(q))
-    .forEach((comp, i) => {
-      const el = document.createElement('div');
-      el.className = 'company-card glass';
-      el.innerHTML = `
-        <div class="company-name">${comp.name}</div>
-        <div class="company-address">${comp.address}</div>
-      `;
-      el.onclick = () => showCompany(comp.name);
-      list.appendChild(el);
-    });
-};
 
 // Add Profile (Demo)
 document.getElementById('addProfileBtn').onclick = () => {
   alert('Profile creation form coming soon!');
-};
-// Add Contact/Company (Demo)
-document.getElementById('addContactBtn').onclick = () => {
-  alert('Add contact feature coming soon!');
-};
-document.getElementById('addCompanyBtn').onclick = () => {
-  alert('Add company feature coming soon!');
 };
 // Add Post (Demo)
 document.getElementById('addPostBtn').onclick = () => {
@@ -363,4 +298,4 @@ document.getElementById('addPostBtn').onclick = () => {
 
 // Expose showProfile for inline onclick
 window.showProfile = showProfile;
-window.showCompany = showCompany;
+window.showCompanyEmployees = showCompanyEmployees;
