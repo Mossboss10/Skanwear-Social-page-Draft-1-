@@ -1,4 +1,4 @@
-// Demo Data
+// DEMO DATA
 const contacts = [
   {
     name: "Christina Wallace",
@@ -162,7 +162,7 @@ const feedPosts = [
   }
 ];
 
-// Feed Render
+// FEED
 function renderFeed() {
   const feed = document.getElementById('feedPosts');
   feed.innerHTML = '';
@@ -186,10 +186,8 @@ function renderFeed() {
         <span>🔗 Share</span>
       </div>
     `;
-    // Click avatar or name to open profile popup
-    el.querySelector('.insta-post-header img').onclick = () => showProfile(post.userIdx);
-    el.querySelector('.insta-post-author').onclick = () => showProfile(post.userIdx);
-    // Like button
+    el.querySelector('.insta-post-header img').onclick = () => showContactDetail(post.userIdx);
+    el.querySelector('.insta-post-author').onclick = () => showContactDetail(post.userIdx);
     el.querySelector('.like-btn').onclick = function() {
       if (post.liked) {
         post.liked = false;
@@ -204,7 +202,7 @@ function renderFeed() {
   });
 }
 
-// Companies Render
+// COMPANIES
 function renderCompanies() {
   const list = document.querySelector('.companies-list');
   list.innerHTML = '';
@@ -221,17 +219,17 @@ function renderCompanies() {
   document.getElementById('companyEmployees').innerHTML = "";
 }
 
-// Show Employees of a Company
+// COMPANY EMPLOYEES
 function showCompanyEmployees(companyName) {
   const employees = contacts.filter(c => c.company === companyName);
-  let html = `<h2>Contacts at ${companyName}</h2>`;
+  let html = `<h2 style="color:#D44A3D;">Contacts at ${companyName}</h2>`;
   if (employees.length === 0) {
     html += '<p>No contacts found for this company.</p>';
   } else {
     html += '<div class="contacts-grid">';
     employees.forEach((c, i) => {
       html += `
-        <div class="contact-card glass" onclick="showProfile(${contacts.indexOf(c)})">
+        <div class="contact-card glass" onclick="showContactDetail(${contacts.indexOf(c)})">
           <img class="contact-photo" src="${c.photo}" alt="${c.name}"/>
           <div class="contact-name">${c.name}</div>
           <div class="contact-company">${c.role}</div>
@@ -244,48 +242,108 @@ function showCompanyEmployees(companyName) {
   document.getElementById('companyEmployees').innerHTML = html;
 }
 
-// Profile Popup
-function showProfile(idx) {
-  const c = contacts[idx];
-  document.getElementById('profileImg').src = c.photo;
-  document.getElementById('profileName').textContent = c.name;
-  document.getElementById('profileRole').textContent = c.role;
-  document.getElementById('profileCompany').textContent = c.company;
-  document.getElementById('profileLocation').textContent = c.location;
-  document.getElementById('profileBio').textContent = c.bio;
-  document.getElementById('profilePosts').textContent = c.stats.posts;
-  document.getElementById('profileRank').textContent = c.stats.rank;
-  document.getElementById('profileChallenges').textContent = c.stats.challenges;
-  const postsList = document.getElementById('profilePostsList');
-  postsList.innerHTML = '';
-  c.posts.forEach(p => {
-    const li = document.createElement('li');
-    li.textContent = p;
-    postsList.appendChild(li);
+// CONTACTS
+function renderContacts() {
+  const grid = document.querySelector('.contacts-grid');
+  grid.innerHTML = '';
+  contacts.forEach((c, i) => {
+    const el = document.createElement('div');
+    el.className = 'contact-card glass';
+    el.innerHTML = `
+      <img class="contact-photo" src="${c.photo}" alt="${c.name}"/>
+      <div class="contact-name">${c.name}</div>
+      <div class="contact-company">${c.company}</div>
+    `;
+    el.onclick = () => showContactDetail(i);
+    grid.appendChild(el);
   });
-  document.getElementById('profilePopup').classList.remove('hidden');
 }
 
-// Close popup
-document.getElementById('closeProfile').onclick = () => {
-  document.getElementById('profilePopup').classList.add('hidden');
+// CONTACT DETAIL PAGE
+function showContactDetail(idx) {
+  // Hide all pages, show contactDetailPage
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('contactDetailPage').classList.add('active');
+  const c = contacts[idx];
+  const container = document.getElementById('contactDetailContent');
+  container.innerHTML = `
+    <div class="contact-detail-card glass">
+      <img src="${c.photo}" alt="${c.name}">
+      <h2>${c.name}</h2>
+      <div class="contact-detail-meta">${c.role} &nbsp;|&nbsp; ${c.company} &nbsp;|&nbsp; ${c.location}</div>
+      <div class="contact-detail-bio">${c.bio}</div>
+      <div class="contact-detail-stats">
+        <span>${c.stats.posts} Posts</span>
+        <span>Rank ${c.stats.rank}</span>
+        <span>${c.stats.challenges} Challenges</span>
+      </div>
+    </div>
+    <div class="contact-detail-posts">
+      <h3>Recent Posts</h3>
+      <ul>
+        ${(c.posts || []).map(post => `<li>${post}</li>`).join("")}
+      </ul>
+    </div>
+  `;
+}
+
+// BACK TO CONTACTS
+document.getElementById('backToContacts').onclick = function() {
+  document.getElementById('contactDetailPage').classList.remove('active');
+  document.getElementById('contactsPage').classList.add('active');
 };
 
-// Sidebar Navigation
+// NAVIGATION
 document.querySelectorAll('.sidebar nav ul li').forEach(el => {
   el.onclick = function() {
     document.querySelectorAll('.sidebar nav ul li').forEach(li => li.classList.remove('active'));
     this.classList.add('active');
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(this.dataset.page).classList.add('active');
-    // If companies, reset companies content
+    // Reset company employees panel if companies chosen
     if (this.dataset.page === "companiesPage") renderCompanies();
+    // Reset contacts if contacts chosen
+    if (this.dataset.page === "contactsPage") renderContacts();
+    // Reset feed if chosen
+    if (this.dataset.page === "feedPage") renderFeed();
   };
 });
 
-// Initial render
+// SIDEBAR TOGGLE
+const sidebar = document.getElementById('sidebar');
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+const mainContent = document.getElementById('mainContent');
+function toggleSidebar(forceOpen) {
+  if(forceOpen === true) {
+    sidebar.classList.add('open');
+    mainContent.style.marginLeft = '';
+    sidebarOverlay.style.display = 'none';
+    return;
+  }
+  if (sidebar.classList.contains('open')) {
+    sidebar.classList.remove('open');
+    sidebarOverlay.style.display = window.innerWidth <= 800 ? 'block' : 'none';
+  } else {
+    sidebar.classList.add('open');
+    sidebarOverlay.style.display = 'none';
+  }
+}
+sidebarToggle.onclick = () => toggleSidebar();
+sidebarOverlay.onclick = () => toggleSidebar(true);
+// Expand sidebar on desktop by default
+if(window.innerWidth > 800) sidebar.classList.add('open');
+// Collapse sidebar on mobile by default
+if(window.innerWidth <= 800) sidebar.classList.remove('open');
+window.addEventListener('resize', () => {
+  if(window.innerWidth > 800) toggleSidebar(true);
+  else sidebar.classList.remove('open');
+});
+
+// INITIAL RENDER
 renderFeed();
 renderCompanies();
+renderContacts();
 
 // Add Profile (Demo)
 document.getElementById('addProfileBtn').onclick = () => {
@@ -296,6 +354,6 @@ document.getElementById('addPostBtn').onclick = () => {
   alert('Add post feature coming soon!');
 };
 
-// Expose showProfile for inline onclick
-window.showProfile = showProfile;
-window.showCompanyEmployees = showCompanyEmployees;
+// Expose for inline event
+window.showContactDetail = showContactDetail;
+window.renderCompanies = renderCompanies;
