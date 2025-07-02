@@ -29,6 +29,10 @@
           <span>👤</span>
           <span class="nav-label">Contacts</span>
         </li>
+        <li data-page="messagesPage" class="glass-nav">
+          <span>💬</span>
+          <span class="nav-label">Messages</span>
+        </li>
         <li data-page="companiesPage" class="glass-nav">
           <span>💼</span>
           <span class="nav-label">Companies</span>
@@ -38,6 +42,7 @@
     <button id="addProfileBtn" class="add-btn glass sidebar-btn">+ Add Profile</button>
   </aside>
   <main id="mainContent">
+    <!-- Feed Section -->
     <section id="feedPage" class="page active">
       <header class="feed-header" style="padding-left:40px;">
         <h1>Feed</h1>
@@ -153,6 +158,7 @@
         </div>
       </div>
     </section>
+    <!-- Contacts Section -->
     <section id="contactsPage" class="page">
       <header>
         <h1>Contacts</h1>
@@ -202,10 +208,71 @@
         </li>
       </ul>
     </section>
+    <!-- Contact Detail Section -->
     <section id="contactDetailPage" class="page contact-detail-page">
       <button id="backToContacts" class="add-btn glass" style="margin-bottom:18px;">← Back to Contacts</button>
       <div id="contactDetailContent"></div>
     </section>
+    <!-- Messages Section -->
+    <section id="messagesPage" class="page">
+      <header>
+        <h1>Messages</h1>
+      </header>
+      <div class="messages-layout">
+        <aside class="messages-list">
+          <div class="message-user active" data-user="Christina">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina"/>
+            <div>
+              <div class="msg-user-name">Christina</div>
+              <div class="msg-user-preview">Let’s catch up later! 👍</div>
+            </div>
+          </div>
+          <div class="message-user" data-user="Bobby">
+            <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Bobby"/>
+            <div>
+              <div class="msg-user-name">Bobby</div>
+              <div class="msg-user-preview">Sent you the docs!</div>
+            </div>
+          </div>
+          <div class="message-user" data-user="Elina">
+            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elina"/>
+            <div>
+              <div class="msg-user-name">Elina</div>
+              <div class="msg-user-preview">Meeting at 3pm?</div>
+            </div>
+          </div>
+          <div class="message-user" data-user="Derek">
+            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Derek"/>
+            <div>
+              <div class="msg-user-name">Derek</div>
+              <div class="msg-user-preview">Ready for the site visit!</div>
+            </div>
+          </div>
+        </aside>
+        <div class="messages-chat-window">
+          <div class="chat-header">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina">
+            <span class="chat-username">Christina</span>
+          </div>
+          <div class="chat-body" id="chatBody">
+            <div class="chat-message theirs">
+              <div class="msg-bubble">Hi, how are you?</div>
+            </div>
+            <div class="chat-message yours">
+              <div class="msg-bubble">I’m good, thanks! You?</div>
+            </div>
+            <div class="chat-message theirs">
+              <div class="msg-bubble">Let’s catch up later! 👍</div>
+            </div>
+          </div>
+          <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off"/>
+            <button id="chatSendBtn">Send</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Companies Section -->
     <section id="companiesPage" class="page">
       <header>
         <h1>Companies</h1>
@@ -318,6 +385,77 @@
       contactDetailPage.classList.remove('active');
       contactsPage.classList.add('active');
     };
+
+    // MESSAGES TAB LOGIC
+    const users = {
+      "Christina": {
+        avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        chat: [
+          {from: "them", text: "Hi, how are you?"},
+          {from: "you", text: "I’m good, thanks! You?"},
+          {from: "them", text: "Let’s catch up later! 👍"}
+        ]
+      },
+      "Bobby": {
+        avatar: "https://randomuser.me/api/portraits/men/44.jpg",
+        chat: [
+          {from: "them", text: "Sent you the docs!"},
+          {from: "you", text: "Thanks Bobby, received."},
+        ]
+      },
+      "Elina": {
+        avatar: "https://randomuser.me/api/portraits/women/22.jpg",
+        chat: [
+          {from: "them", text: "Meeting at 3pm?"},
+          {from: "you", text: "Works for me!"},
+        ]
+      },
+      "Derek": {
+        avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+        chat: [
+          {from: "them", text: "Ready for the site visit!"},
+          {from: "you", text: "See you there!"},
+        ]
+      }
+    };
+    function renderChat(user) {
+      const chatBody = document.getElementById('chatBody');
+      const chatHeaderImg = document.querySelector('.chat-header img');
+      const chatHeaderName = document.querySelector('.chat-header .chat-username');
+      chatHeaderImg.src = users[user].avatar;
+      chatHeaderName.textContent = user;
+      chatBody.innerHTML = '';
+      users[user].chat.forEach(msg => {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `chat-message ${msg.from === "you" ? "yours" : "theirs"}`;
+        msgDiv.innerHTML = `<div class="msg-bubble">${msg.text}</div>`;
+        chatBody.appendChild(msgDiv);
+      });
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+    document.querySelectorAll('.message-user').forEach(node => {
+      node.onclick = function() {
+        document.querySelectorAll('.message-user').forEach(n => n.classList.remove('active'));
+        this.classList.add('active');
+        renderChat(this.dataset.user);
+      };
+    });
+    // Initial chat
+    renderChat("Christina");
+    // Chat send
+    document.getElementById('chatSendBtn').onclick = function() {
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if(msg) {
+        const activeUser = document.querySelector('.message-user.active').dataset.user;
+        users[activeUser].chat.push({from:"you",text:msg});
+        renderChat(activeUser);
+        input.value = "";
+      }
+    };
+    document.getElementById('chatInput').addEventListener('keydown', function(e){
+      if(e.key==="Enter") document.getElementById('chatSendBtn').click();
+    });
   </script>
 </body>
 </html>
