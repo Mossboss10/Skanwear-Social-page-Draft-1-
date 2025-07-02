@@ -184,7 +184,7 @@ main {
 #feedPage.page {
   background: var(--feed-bg);
   border-radius: 38px;
-  box-shadow: 0 10px 50px #ffffff;
+  box-shadow: 0 10px 50px #d64b4322;
   padding: 36px 0 36px 0;
   min-height: 100vh;
 }
@@ -261,7 +261,7 @@ main {
 .insta-post-bg {
   position: absolute;
   inset: 0;
-  background: #d64b43; 
+  background: #fff;
   border-radius: 32px;
   z-index: 1;
   box-shadow: 0 2px 30px #bbb2;
@@ -392,4 +392,52 @@ main {
   box-shadow: 0 1px 7px #bbb2;
   margin-bottom: 5px;
   max-width: 80%;
+}
+
+/* CONTACTS STYLES */
+.contacts-list {
+  list-style: none;
+  padding: 0;
+  margin: 24px auto 0 auto;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  border-radius: 22px;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.09);
+  padding: 16px 24px;
+  cursor: pointer;
+  transition: background 0.15s, border 0.15s, box-shadow 0.19s;
+  position: relative;
+}
+.contact-card:hover, .contact-card:focus {
+  background: var(--glass-hover);
+  border-color: #fff;
+  box-shadow: 0 8px 32px #d64b4322;
+}
+.contact-card img {
+  width: 55px;
+  height: 55px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 2.3px solid #d64b43;
+  background: #fff;
+  box-shadow: 0 1.5px 8px #d64b4315;
+}
+.contact-name {
+  font-weight: 700;
+  font-size: 1.17em;
+  color: #d64b43;
+}
+.contact-role {
+  color: #555;
+  font-size: 1.04em;
+  opacity: 0.8;
 }
