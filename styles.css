@@ -261,7 +261,7 @@ main {
 .insta-post-bg {
   position: absolute;
   inset: 0;
-  background: #fff;
+  background: #d64b43; 
   border-radius: 32px;
   z-index: 1;
   box-shadow: 0 2px 30px #bbb2;
