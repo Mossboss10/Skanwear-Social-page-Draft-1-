@@ -71,6 +71,7 @@
       </div>
       <!-- FEED POSTS -->
       <div id="feedPosts" class="insta-feed">
+        <!-- ... same feed posts as before ... -->
         <div class="insta-post" data-likes="43" data-replies='["Great session!","I agree, super useful.","Loved the Q&A."]'>
           <div class="insta-post-bg"></div>
           <div class="insta-post-glass">
@@ -157,7 +158,50 @@
       <header>
         <h1>Contacts</h1>
       </header>
-      <div class="contacts-grid"></div>
+      <ul class="contacts-list">
+        <li class="contact-card" data-name="Christina" data-avatar="https://randomuser.me/api/portraits/women/65.jpg" data-role="Engineer" data-company="SKANWEAR" data-email="christina@skanwear.com">
+          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina" />
+          <div>
+            <div class="contact-name">Christina</div>
+            <div class="contact-role">Engineer</div>
+          </div>
+        </li>
+        <li class="contact-card" data-name="Bobby" data-avatar="https://randomuser.me/api/portraits/men/44.jpg" data-role="Manager" data-company="SKANWEAR" data-email="bobby@skanwear.com">
+          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Bobby" />
+          <div>
+            <div class="contact-name">Bobby</div>
+            <div class="contact-role">Manager</div>
+          </div>
+        </li>
+        <li class="contact-card" data-name="Elina" data-avatar="https://randomuser.me/api/portraits/women/22.jpg" data-role="Safety Lead" data-company="SKANWEAR" data-email="elina@skanwear.com">
+          <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elina" />
+          <div>
+            <div class="contact-name">Elina</div>
+            <div class="contact-role">Safety Lead</div>
+          </div>
+        </li>
+        <li class="contact-card" data-name="Derek" data-avatar="https://randomuser.me/api/portraits/men/22.jpg" data-role="Technician" data-company="SKANWEAR" data-email="derek@skanwear.com">
+          <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Derek" />
+          <div>
+            <div class="contact-name">Derek</div>
+            <div class="contact-role">Technician</div>
+          </div>
+        </li>
+        <li class="contact-card" data-name="Christiana" data-avatar="https://randomuser.me/api/portraits/women/60.jpg" data-role="HR" data-company="SKANWEAR" data-email="christiana@skanwear.com">
+          <img src="https://randomuser.me/api/portraits/women/60.jpg" alt="Christiana" />
+          <div>
+            <div class="contact-name">Christiana</div>
+            <div class="contact-role">HR</div>
+          </div>
+        </li>
+        <li class="contact-card" data-name="Alan" data-avatar="https://randomuser.me/api/portraits/men/52.jpg" data-role="Sales" data-company="SKANWEAR" data-email="alan@skanwear.com">
+          <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Alan" />
+          <div>
+            <div class="contact-name">Alan</div>
+            <div class="contact-role">Sales</div>
+          </div>
+        </li>
+      </ul>
     </section>
     <section id="contactDetailPage" class="page contact-detail-page">
       <button id="backToContacts" class="add-btn glass" style="margin-bottom:18px;">← Back to Contacts</button>
@@ -250,6 +294,32 @@
         });
       };
     });
+
+    // CONTACTS LIST LOGIC
+    const contactsPage = document.getElementById('contactsPage');
+    const contactDetailPage = document.getElementById('contactDetailPage');
+    const contactDetailContent = document.getElementById('contactDetailContent');
+    document.querySelectorAll('.contact-card').forEach(function(card){
+      card.onclick = function() {
+        // Fill out contact detail
+        contactDetailContent.innerHTML = `
+          <div style="display:flex;gap:26px;align-items:center;">
+            <img src="${card.dataset.avatar}" alt="${card.dataset.name}" style="width:90px;height:90px;border-radius:22px;border:4px solid #d64b43;box-shadow:0 2px 18px #d64b4340;background:#fff;">
+            <div>
+              <div style="font-size:1.7em;font-weight:700;color:#d64b43">${card.dataset.name}</div>
+              <div style="font-size:1.09em;color:#444;margin:6px 0 8px 0;">${card.dataset.role} &bull; ${card.dataset.company}</div>
+              <div style="font-size:1.04em;color:#888;"><span style="font-weight:600;">Email:</span> ${card.dataset.email}</div>
+            </div>
+          </div>
+        `;
+        contactsPage.classList.remove('active');
+        contactDetailPage.classList.add('active');
+      };
+    });
+    document.getElementById('backToContacts').onclick = function() {
+      contactDetailPage.classList.remove('active');
+      contactsPage.classList.add('active');
+    };
   </script>
 </body>
 </html>
