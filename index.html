@@ -4,275 +4,169 @@
   <meta charset="UTF-8">
   <title>SKANWEAR® Community</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Loader CSS should be included before your main app CSS -->
+  <link rel="stylesheet" href="loader.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Sidebar Navigation -->
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo-wrap">
-        <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,h_225,c_limit/https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fglide-prod.appspot.com%2Fo%2Ficon-images%252Fanonymous-ffba51fe-f9de-4950-ab3f-a7653a0a8e55.png%3Falt%3Dmedia%26token%3De6c193e1-b95e-4a2b-adc3-40c9cbe05c9f"
-          alt="SKANWEAR logo" class="logo"/>
+  <!-- LOADING SCREEN -->
+  <div id="loaderScreen">
+    <svg class="intro" viewBox="0 0 200 86">
+      <text text-anchor="start" x="10" y="30" class="text text-stroke" clip-path="url(#text1)">Skanwear</text>
+      <text text-anchor="start" x="10" y="50" class="text text-stroke" clip-path="url(#text2)">Saving</text>
+      <text text-anchor="start" x="10" y="70" class="text text-stroke" clip-path="url(#text3)">Lives.</text>
+      <text text-anchor="start" x="10" y="30" class="text text-stroke text-stroke-2" clip-path="url(#text1)">Skanwear</text>
+      <text text-anchor="start" x="10" y="50" class="text text-stroke text-stroke-2" clip-path="url(#text2)">Saving</text>
+      <text text-anchor="start" x="10" y="70" class="text text-stroke text-stroke-2" clip-path="url(#text3)">Lives.</text>
+      <defs>
+        <clipPath id="text1">
+          <text text-anchor="start" x="10" y="30" class="text">Skanwear</text>
+        </clipPath>
+        <clipPath id="text2">
+          <text text-anchor="start" x="10" y="50" class="text">Saving</text>
+        </clipPath>
+        <clipPath id="text3">
+          <text text-anchor="start" x="10" y="70" class="text">Lives.</text>
+        </clipPath>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Main App (hidden at first, shown after loader) -->
+  <div id="mainApp" style="display:none;">
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo-wrap">
+          <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,h_225,c_limit/https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fglide-prod.appspot.com%2Fo%2Ficon-images%252Fanonymous-ffba51fe-f9de-4950-ab3f-a7653a0a8e55.png%3Falt%3Dmedia%26token%3De6c193e1-b95e-4a2b-adc3-40c9cbe05c9f"
+            alt="SKANWEAR logo" class="logo"/>
+        </div>
+        <span class="brand-name">SKANWEAR®</span>
+        <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <span class="brand-name">SKANWEAR®</span>
-      <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <nav>
-      <ul>
-        <li data-page="feedPage" class="active glass-nav">
-          <span>🏠</span>
-          <span class="nav-label">Feed</span>
-        </li>
-        <li data-page="contactsPage" class="glass-nav">
-          <span>👤</span>
-          <span class="nav-label">Contacts</span>
-        </li>
-        <li data-page="messagesPage" class="glass-nav">
-          <span>💬</span>
-          <span class="nav-label">Messages</span>
-        </li>
-        <li data-page="companiesPage" class="glass-nav">
-          <span>💼</span>
-          <span class="nav-label">Companies</span>
-        </li>
-      </ul>
-    </nav>
-    <button id="addProfileBtn" class="add-btn glass sidebar-btn">+ Add Profile</button>
-  </aside>
-  <main id="mainContent">
-    <!-- Feed Section -->
-    <section id="feedPage" class="page active">
-      <header class="feed-header" style="padding-left:40px;">
-        <h1>Feed</h1>
-        <button class="add-btn glass" id="addPostBtn">+ Post</button>
-      </header>
-      <div class="stories-bar">
-        <div class="story">
-          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina"/>
-          <span>Christina</span>
-        </div>
-        <div class="story">
-          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Bobby"/>
-          <span>Bobby</span>
-        </div>
-        <div class="story">
-          <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elina"/>
-          <span>Elina</span>
-        </div>
-        <div class="story">
-          <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Derek"/>
-          <span>Derek</span>
-        </div>
-        <div class="story">
-          <img src="https://randomuser.me/api/portraits/women/60.jpg" alt="Christiana"/>
-          <span>Christiana</span>
-        </div>
-        <div class="story">
-          <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Alan"/>
-          <span>Alan</span>
-        </div>
-      </div>
-      <!-- FEED POSTS -->
-      <div id="feedPosts" class="insta-feed">
-        <div class="insta-post" data-likes="43" data-replies='["Great session!","I agree, super useful.","Loved the Q&A."]'>
-          <div class="insta-post-bg"></div>
-          <div class="insta-post-glass">
-            <div class="insta-post-header">
-              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina">
-              <div>
-                <div class="insta-post-author">Christina</div>
-                <div class="insta-post-info">Engineer · SKANWEAR · 2h ago</div>
-              </div>
-            </div>
-            <img class="insta-post-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Post image">
-            <div class="insta-post-body">Excited to be at the new safety training seminar today!</div>
-            <div class="insta-post-actions">
-              <button class="like-btn"><span>❤️</span> <span class="like-count">43</span></button>
-              <button class="reply-btn"><span>💬</span> <span class="reply-count">3</span> Reply</button>
-              <button class="share-btn"><span>🔗</span> Share</button>
-            </div>
-            <div class="reply-messages"></div>
-          </div>
-        </div>
-        <div class="insta-post" data-likes="27" data-replies='["Looks awesome!","How do we get one?"]'>
-          <div class="insta-post-bg"></div>
-          <div class="insta-post-glass">
-            <div class="insta-post-header">
-              <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Bobby">
-              <div>
-                <div class="insta-post-author">Bobby</div>
-                <div class="insta-post-info">Manager · SKANWEAR · 3h ago</div>
-              </div>
-            </div>
-            <img class="insta-post-img" src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Post image">
-            <div class="insta-post-body">Here’s a look at the new protective gear we received!</div>
-            <div class="insta-post-actions">
-              <button class="like-btn"><span>❤️</span> <span class="like-count">27</span></button>
-              <button class="reply-btn"><span>💬</span> <span class="reply-count">2</span> Reply</button>
-              <button class="share-btn"><span>🔗</span> Share</button>
-            </div>
-            <div class="reply-messages"></div>
-          </div>
-        </div>
-        <div class="insta-post" data-likes="31" data-replies='[]'>
-          <div class="insta-post-bg"></div>
-          <div class="insta-post-glass">
-            <div class="insta-post-header">
-              <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elina">
-              <div>
-                <div class="insta-post-author">Elina</div>
-                <div class="insta-post-info">Safety Lead · SKANWEAR · 4h ago</div>
-              </div>
-            </div>
-            <img class="insta-post-img" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=80" alt="Post image">
-            <div class="insta-post-body">Proud of my team for passing all the compliance checks this month. Keep it up!</div>
-            <div class="insta-post-actions">
-              <button class="like-btn"><span>❤️</span> <span class="like-count">31</span></button>
-              <button class="reply-btn"><span>💬</span> <span class="reply-count">0</span> Reply</button>
-              <button class="share-btn"><span>🔗</span> Share</button>
-            </div>
-            <div class="reply-messages"></div>
-          </div>
-        </div>
-        <div class="insta-post" data-likes="20" data-replies='["Very sleek!"]'>
-          <div class="insta-post-bg"></div>
-          <div class="insta-post-glass">
-            <div class="insta-post-header">
-              <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Derek">
-              <div>
-                <div class="insta-post-author">Derek</div>
-                <div class="insta-post-info">Technician · SKANWEAR · 5h ago</div>
-              </div>
-            </div>
-            <img class="insta-post-img" src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="Post image">
-            <div class="insta-post-body">Spot the difference! Our new equipment is sleeker and safer.</div>
-            <div class="insta-post-actions">
-              <button class="like-btn"><span>❤️</span> <span class="like-count">20</span></button>
-              <button class="reply-btn"><span>💬</span> <span class="reply-count">1</span> Reply</button>
-              <button class="share-btn"><span>🔗</span> Share</button>
-            </div>
-            <div class="reply-messages"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Contacts Section -->
-    <section id="contactsPage" class="page">
-      <header>
-        <h1>Contacts</h1>
-      </header>
-      <ul class="contacts-list">
-        <li class="contact-card" data-name="Christina" data-avatar="https://randomuser.me/api/portraits/women/65.jpg" data-role="Engineer" data-company="SKANWEAR" data-email="christina@skanwear.com">
-          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina" />
-          <div>
-            <div class="contact-name">Christina</div>
-            <div class="contact-role">Engineer</div>
-          </div>
-        </li>
-        <li class="contact-card" data-name="Bobby" data-avatar="https://randomuser.me/api/portraits/men/44.jpg" data-role="Manager" data-company="SKANWEAR" data-email="bobby@skanwear.com">
-          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Bobby" />
-          <div>
-            <div class="contact-name">Bobby</div>
-            <div class="contact-role">Manager</div>
-          </div>
-        </li>
-        <li class="contact-card" data-name="Elina" data-avatar="https://randomuser.me/api/portraits/women/22.jpg" data-role="Safety Lead" data-company="SKANWEAR" data-email="elina@skanwear.com">
-          <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elina" />
-          <div>
-            <div class="contact-name">Elina</div>
-            <div class="contact-role">Safety Lead</div>
-          </div>
-        </li>
-        <li class="contact-card" data-name="Derek" data-avatar="https://randomuser.me/api/portraits/men/22.jpg" data-role="Technician" data-company="SKANWEAR" data-email="derek@skanwear.com">
-          <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Derek" />
-          <div>
-            <div class="contact-name">Derek</div>
-            <div class="contact-role">Technician</div>
-          </div>
-        </li>
-        <li class="contact-card" data-name="Christiana" data-avatar="https://randomuser.me/api/portraits/women/60.jpg" data-role="HR" data-company="SKANWEAR" data-email="christiana@skanwear.com">
-          <img src="https://randomuser.me/api/portraits/women/60.jpg" alt="Christiana" />
-          <div>
-            <div class="contact-name">Christiana</div>
-            <div class="contact-role">HR</div>
-          </div>
-        </li>
-        <li class="contact-card" data-name="Alan" data-avatar="https://randomuser.me/api/portraits/men/52.jpg" data-role="Sales" data-company="SKANWEAR" data-email="alan@skanwear.com">
-          <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Alan" />
-          <div>
-            <div class="contact-name">Alan</div>
-            <div class="contact-role">Sales</div>
-          </div>
-        </li>
-      </ul>
-    </section>
-    <!-- Contact Detail Section -->
-    <section id="contactDetailPage" class="page contact-detail-page">
-      <button id="backToContacts" class="add-btn glass" style="margin-bottom:18px;">← Back to Contacts</button>
-      <div id="contactDetailContent"></div>
-    </section>
-    <!-- Messages Section -->
-    <section id="messagesPage" class="page">
-      <header>
-        <h1>Messages</h1>
-      </header>
-      <div class="messages-layout">
-        <aside class="messages-list">
-          <div class="message-user active" data-user="Christina">
+      <nav>
+        <ul>
+          <li data-page="feedPage" class="active glass-nav">
+            <span>🏠</span>
+            <span class="nav-label">Feed</span>
+          </li>
+          <li data-page="contactsPage" class="glass-nav">
+            <span>👤</span>
+            <span class="nav-label">Contacts</span>
+          </li>
+          <li data-page="messagesPage" class="glass-nav">
+            <span>💬</span>
+            <span class="nav-label">Messages</span>
+          </li>
+          <li data-page="companiesPage" class="glass-nav">
+            <span>💼</span>
+            <span class="nav-label">Companies</span>
+          </li>
+        </ul>
+      </nav>
+      <button id="addProfileBtn" class="add-btn glass sidebar-btn">+ Add Profile</button>
+    </aside>
+    <main id="mainContent">
+      <!-- Feed Section -->
+      <section id="feedPage" class="page active">
+        <header class="feed-header" style="padding-left:40px;">
+          <h1>Feed</h1>
+          <button class="add-btn glass" id="addPostBtn">+ Post</button>
+        </header>
+        <div class="stories-bar">
+          <div class="story">
             <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina"/>
-            <div>
-              <div class="msg-user-name">Christina</div>
-              <div class="msg-user-preview">Let’s catch up later! 👍</div>
-            </div>
+            <span>Christina</span>
           </div>
-          <div class="message-user" data-user="Bobby">
+          <div class="story">
             <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Bobby"/>
-            <div>
-              <div class="msg-user-name">Bobby</div>
-              <div class="msg-user-preview">Sent you the docs!</div>
-            </div>
+            <span>Bobby</span>
           </div>
-          <div class="message-user" data-user="Elina">
+          <div class="story">
             <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elina"/>
-            <div>
-              <div class="msg-user-name">Elina</div>
-              <div class="msg-user-preview">Meeting at 3pm?</div>
-            </div>
+            <span>Elina</span>
           </div>
-          <div class="message-user" data-user="Derek">
+          <div class="story">
             <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Derek"/>
-            <div>
-              <div class="msg-user-name">Derek</div>
-              <div class="msg-user-preview">Ready for the site visit!</div>
-            </div>
+            <span>Derek</span>
           </div>
-        </aside>
-        <div class="messages-chat-window">
-          <div class="chat-header">
-            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina">
-            <span class="chat-username">Christina</span>
+          <div class="story">
+            <img src="https://randomuser.me/api/portraits/women/60.jpg" alt="Christiana"/>
+            <span>Christiana</span>
           </div>
-          <div class="chat-body" id="chatBody">
-            <!-- Chat bubbles will be rendered here by JS -->
-          </div>
-          <div class="chat-footer">
-            <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off"/>
-            <button id="chatSendBtn">Send</button>
+          <div class="story">
+            <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Alan"/>
+            <span>Alan</span>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Companies Section -->
-    <section id="companiesPage" class="page">
-      <header>
-        <h1>Companies</h1>
-      </header>
-      <div class="companies-list"></div>
-      <div id="companyEmployees" style="margin-top:32px"></div>
-    </section>
-  </main>
+        <!-- FEED POSTS -->
+        <div id="feedPosts" class="insta-feed">
+          <!-- ... FEED POSTS as in your previous code ... -->
+          <!-- (Omitted here for brevity, use your full feed posts HTML) -->
+        </div>
+      </section>
+      <!-- Contacts Section -->
+      <section id="contactsPage" class="page">
+        <header>
+          <h1>Contacts</h1>
+        </header>
+        <ul class="contacts-list">
+          <!-- ... CONTACTS as in your previous code ... -->
+        </ul>
+      </section>
+      <!-- Contact Detail Section -->
+      <section id="contactDetailPage" class="page contact-detail-page">
+        <button id="backToContacts" class="add-btn glass" style="margin-bottom:18px;">← Back to Contacts</button>
+        <div id="contactDetailContent"></div>
+      </section>
+      <!-- Messages Section -->
+      <section id="messagesPage" class="page">
+        <header>
+          <h1>Messages</h1>
+        </header>
+        <div class="messages-layout">
+          <aside class="messages-list">
+            <!-- ... MESSAGE USERS as in your previous code ... -->
+          </aside>
+          <div class="messages-chat-window">
+            <div class="chat-header">
+              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina">
+              <span class="chat-username">Christina</span>
+            </div>
+            <div class="chat-body" id="chatBody">
+              <!-- Chat bubbles will be rendered here by JS -->
+            </div>
+            <div class="chat-footer">
+              <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off"/>
+              <button id="chatSendBtn">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Companies Section -->
+      <section id="companiesPage" class="page">
+        <header>
+          <h1>Companies</h1>
+        </header>
+        <div class="companies-list"></div>
+        <div id="companyEmployees" style="margin-top:32px"></div>
+      </section>
+    </main>
+  </div>
+  <!-- Loader animation and transition logic (no jQuery needed, pure JS) -->
+  <script>
+    // Play loader animation on page load, then show app
+    window.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('.intro').classList.add('go');
+      setTimeout(function() {
+        document.getElementById('loaderScreen').style.display = 'none';
+        document.getElementById('mainApp').style.display = 'block';
+      }, 4700); // matches the loader animation duration
+    });
+  </script>
+  <!-- Your main app JS remains unchanged, place below or in a separate file -->
   <script>
     // Sidebar nav button logic
     document.querySelectorAll('.sidebar nav ul li').forEach(el => {
