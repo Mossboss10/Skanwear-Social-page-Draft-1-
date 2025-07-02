@@ -184,7 +184,7 @@ main {
 #feedPage.page {
   background: var(--feed-bg);
   border-radius: 38px;
-  box-shadow: 0 10px 50px #d64b4322;
+  box-shadow: 0 10px 50px #ffffff;
   padding: 36px 0 36px 0;
   min-height: 100vh;
 }
