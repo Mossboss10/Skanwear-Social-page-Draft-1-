@@ -264,7 +264,6 @@
       }
     }
 
-    /* ======= PAGES ======= */
     #feedPage.page {
       background: var(--feed-bg);
       border-radius: 38px;
@@ -291,7 +290,6 @@
       to { opacity: 1; transform: none;}
     }
 
-    /* ======= STORIES ======= */
     .stories-bar {
       display: flex;
       gap: 18px;
@@ -323,7 +321,6 @@
       margin-top: 1px;
     }
 
-    /* ======= FEED/POSTS ======= */
     .feed-header {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 28px;
@@ -384,7 +381,6 @@
       text-shadow: 0 1.5px 8px #fff7;
     }
 
-    /* ======= CONTACTS ======= */
     .contacts-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -425,7 +421,6 @@
       color: #6a6a6a;
     }
 
-    /* ======= CONTACT DETAIL PAGE ======= */
     .contact-detail-page {
       max-width: 630px;
       margin: 0 auto;
@@ -495,8 +490,6 @@
       margin-bottom: 9px;
       font-size: 1.04em;
     }
-
-    /* ======= COMPANIES ======= */
     .companies-list {
       display: flex;
       flex-direction: column;
@@ -760,7 +753,6 @@
 
     <!-- Contact Detail Page (hidden until open) -->
     <section id="contactDetailPage" class="page contact-detail-page">
-      <button id="backToContacts" class="add-btn glass" style="margin-bottom:18px;">← Back to Contacts</button>
       <div id="contactDetailContent"></div>
     </section>
 
@@ -1026,14 +1018,6 @@
         </div>
       `;
     }
-
-    // BACK TO CONTACTS
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('backToContacts').onclick = function() {
-        document.getElementById('contactDetailPage').classList.remove('active');
-        document.getElementById('contactsPage').classList.add('active');
-      };
-    });
 
     // COMPANIES
     function renderCompanies() {
