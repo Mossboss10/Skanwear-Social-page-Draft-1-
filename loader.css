@@ -1,0 +1,67 @@
+body, html {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#loaderScreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #9B182F;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+svg.intro {
+  background: linear-gradient(135deg, #9B182F, #9B182F);
+  max-width: 800px;
+  width: 85vw;
+  height: 160px;
+  position: relative;
+  display: block;
+}
+.text { 
+  display: none;
+}
+.intro.go .text {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  display: block;
+}
+.intro.go .text-stroke {
+  fill: none;
+  stroke: #141930;
+  stroke-width: 2.8px;
+  stroke-dashoffset: -900;
+  stroke-dasharray: 900;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  animation: dash 2.5s ease-in-out forwards;
+}
+.intro.go .text-stroke:nth-child(2) {
+  animation-delay: .3s;
+}
+.intro.go .text-stroke:nth-child(3) {
+  animation-delay: .9s;
+}
+.intro.go .text-stroke-2 {
+  stroke: #ffffff;
+  animation-delay: 1.2s;
+}
+.intro.go .text-stroke:nth-child(5) {
+  animation-delay: 1.5s;
+}
+.intro.go .text-stroke:nth-child(6) {
+  animation-delay: 1.8s;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
