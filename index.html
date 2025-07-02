@@ -39,7 +39,7 @@
   </aside>
   <main id="mainContent">
     <section id="feedPage" class="page active">
-      <header class="feed-header">
+      <header class="feed-header" style="padding-left:40px;">
         <h1>Feed</h1>
         <button class="add-btn glass" id="addPostBtn">+ Post</button>
       </header>
@@ -71,68 +71,84 @@
       </div>
       <!-- FEED POSTS -->
       <div id="feedPosts" class="insta-feed">
-        <div class="insta-post">
-          <div class="insta-post-header">
-            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina">
-            <div>
-              <div class="insta-post-author">Christina</div>
-              <div class="insta-post-info">Engineer · SKANWEAR · 2h ago</div>
+        <div class="insta-post" data-likes="43" data-replies='["Great session!","I agree, super useful.","Loved the Q&A."]'>
+          <div class="insta-post-bg"></div>
+          <div class="insta-post-glass">
+            <div class="insta-post-header">
+              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina">
+              <div>
+                <div class="insta-post-author">Christina</div>
+                <div class="insta-post-info">Engineer · SKANWEAR · 2h ago</div>
+              </div>
             </div>
-          </div>
-          <img class="insta-post-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Post image">
-          <div class="insta-post-body">Excited to be at the new safety training seminar today!</div>
-          <div class="insta-post-actions">
-            <span class="like-btn">❤️ 43</span>
-            <span>💬 6</span>
-            <span>🔗 Share</span>
+            <img class="insta-post-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Post image">
+            <div class="insta-post-body">Excited to be at the new safety training seminar today!</div>
+            <div class="insta-post-actions">
+              <button class="like-btn"><span>❤️</span> <span class="like-count">43</span></button>
+              <button class="reply-btn"><span>💬</span> <span class="reply-count">3</span> Reply</button>
+              <button class="share-btn"><span>🔗</span> Share</button>
+            </div>
+            <div class="reply-messages"></div>
           </div>
         </div>
-        <div class="insta-post">
-          <div class="insta-post-header">
-            <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Bobby">
-            <div>
-              <div class="insta-post-author">Bobby</div>
-              <div class="insta-post-info">Manager · SKANWEAR · 3h ago</div>
+        <div class="insta-post" data-likes="27" data-replies='["Looks awesome!","How do we get one?"]'>
+          <div class="insta-post-bg"></div>
+          <div class="insta-post-glass">
+            <div class="insta-post-header">
+              <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Bobby">
+              <div>
+                <div class="insta-post-author">Bobby</div>
+                <div class="insta-post-info">Manager · SKANWEAR · 3h ago</div>
+              </div>
             </div>
-          </div>
-          <img class="insta-post-img" src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Post image">
-          <div class="insta-post-body">Here’s a look at the new protective gear we received!</div>
-          <div class="insta-post-actions">
-            <span class="like-btn">❤️ 27</span>
-            <span>💬 3</span>
-            <span>🔗 Share</span>
+            <img class="insta-post-img" src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Post image">
+            <div class="insta-post-body">Here’s a look at the new protective gear we received!</div>
+            <div class="insta-post-actions">
+              <button class="like-btn"><span>❤️</span> <span class="like-count">27</span></button>
+              <button class="reply-btn"><span>💬</span> <span class="reply-count">2</span> Reply</button>
+              <button class="share-btn"><span>🔗</span> Share</button>
+            </div>
+            <div class="reply-messages"></div>
           </div>
         </div>
-        <div class="insta-post">
-          <div class="insta-post-header">
-            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elina">
-            <div>
-              <div class="insta-post-author">Elina</div>
-              <div class="insta-post-info">Safety Lead · SKANWEAR · 4h ago</div>
+        <div class="insta-post" data-likes="31" data-replies='[]'>
+          <div class="insta-post-bg"></div>
+          <div class="insta-post-glass">
+            <div class="insta-post-header">
+              <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elina">
+              <div>
+                <div class="insta-post-author">Elina</div>
+                <div class="insta-post-info">Safety Lead · SKANWEAR · 4h ago</div>
+              </div>
             </div>
-          </div>
-          <img class="insta-post-img" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=80" alt="Post image">
-          <div class="insta-post-body">Proud of my team for passing all the compliance checks this month. Keep it up!</div>
-          <div class="insta-post-actions">
-            <span class="like-btn">❤️ 31</span>
-            <span>💬 4</span>
-            <span>🔗 Share</span>
+            <img class="insta-post-img" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=80" alt="Post image">
+            <div class="insta-post-body">Proud of my team for passing all the compliance checks this month. Keep it up!</div>
+            <div class="insta-post-actions">
+              <button class="like-btn"><span>❤️</span> <span class="like-count">31</span></button>
+              <button class="reply-btn"><span>💬</span> <span class="reply-count">0</span> Reply</button>
+              <button class="share-btn"><span>🔗</span> Share</button>
+            </div>
+            <div class="reply-messages"></div>
           </div>
         </div>
-        <div class="insta-post">
-          <div class="insta-post-header">
-            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Derek">
-            <div>
-              <div class="insta-post-author">Derek</div>
-              <div class="insta-post-info">Technician · SKANWEAR · 5h ago</div>
+        <div class="insta-post" data-likes="20" data-replies='["Very sleek!"]'>
+          <div class="insta-post-bg"></div>
+          <div class="insta-post-glass">
+            <div class="insta-post-header">
+              <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Derek">
+              <div>
+                <div class="insta-post-author">Derek</div>
+                <div class="insta-post-info">Technician · SKANWEAR · 5h ago</div>
+              </div>
             </div>
-          </div>
-          <img class="insta-post-img" src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="Post image">
-          <div class="insta-post-body">Spot the difference! Our new equipment is sleeker and safer.</div>
-          <div class="insta-post-actions">
-            <span class="like-btn">❤️ 20</span>
-            <span>💬 2</span>
-            <span>🔗 Share</span>
+            <img class="insta-post-img" src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="Post image">
+            <div class="insta-post-body">Spot the difference! Our new equipment is sleeker and safer.</div>
+            <div class="insta-post-actions">
+              <button class="like-btn"><span>❤️</span> <span class="like-count">20</span></button>
+              <button class="reply-btn"><span>💬</span> <span class="reply-count">1</span> Reply</button>
+              <button class="share-btn"><span>🔗</span> Share</button>
+            </div>
+            <div class="reply-messages"></div>
           </div>
         </div>
       </div>
@@ -156,13 +172,82 @@
     </section>
   </main>
   <script>
-    // Sidebar nav button logic for demo (no script.js required)
+    // Sidebar nav button logic
     document.querySelectorAll('.sidebar nav ul li').forEach(el => {
       el.onclick = function() {
         document.querySelectorAll('.sidebar nav ul li').forEach(li => li.classList.remove('active'));
         this.classList.add('active');
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(this.dataset.page).classList.add('active');
+      };
+    });
+
+    // Like and Reply button logic for each post
+    document.querySelectorAll('.insta-post').forEach(function(post) {
+      const likeBtn = post.querySelector('.like-btn');
+      const replyBtn = post.querySelector('.reply-btn');
+      const likeCount = likeBtn.querySelector('.like-count');
+      const replyCount = replyBtn.querySelector('.reply-count');
+      const replyMessages = post.querySelector('.reply-messages');
+      let liked = false;
+      let replying = false;
+
+      // Set initial replies
+      let replies = [];
+      try { replies = JSON.parse(post.getAttribute('data-replies')); } catch(e) {}
+      function renderReplies() {
+        replyMessages.innerHTML = '';
+        replies.forEach(reply => {
+          const r = document.createElement('div');
+          r.className = "reply-message";
+          r.textContent = reply;
+          replyMessages.appendChild(r);
+        });
+      }
+      renderReplies();
+      replyCount.textContent = replies.length;
+
+      // Like button
+      likeBtn.onclick = function() {
+        liked = !liked;
+        let count = parseInt(likeCount.textContent,10);
+        if(liked) {
+          likeBtn.classList.add('liked');
+          likeCount.textContent = count+1;
+        } else {
+          likeBtn.classList.remove('liked');
+          likeCount.textContent = count-1;
+        }
+      };
+
+      // Reply button
+      replyBtn.onclick = function() {
+        if(replying) return;
+        replying = true;
+        replyBtn.classList.add('replying');
+        // Reply box
+        const box = document.createElement('div');
+        box.className = 'reply-box';
+        box.innerHTML = '<input type="text" maxlength="140" placeholder="Write a reply..."/><button type="button">Send</button>';
+        replyMessages.parentNode.insertBefore(box, replyMessages.nextSibling);
+        const input = box.querySelector('input');
+        input.focus();
+        box.querySelector('button').onclick = function() {
+          const val = input.value.trim();
+          if(val) {
+            replies.push(val);
+            renderReplies();
+            replyCount.textContent = replies.length;
+          }
+          box.remove();
+          replyBtn.classList.remove('replying');
+          replying = false;
+        };
+        input.addEventListener('keydown', function(e){
+          if(e.key==='Enter'){
+            box.querySelector('button').click();
+          }
+        });
       };
     });
   </script>
