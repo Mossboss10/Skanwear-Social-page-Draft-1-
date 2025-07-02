@@ -45,33 +45,32 @@
       </header>
       <div class="stories-bar">
         <div class="story">
-          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Story user"/>
+          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Christina"/>
           <span>Christina</span>
         </div>
         <div class="story">
-          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Story user"/>
+          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Bobby"/>
           <span>Bobby</span>
         </div>
         <div class="story">
-          <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Story user"/>
+          <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elina"/>
           <span>Elina</span>
         </div>
         <div class="story">
-          <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Story user"/>
+          <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Derek"/>
           <span>Derek</span>
         </div>
         <div class="story">
-          <img src="https://randomuser.me/api/portraits/women/60.jpg" alt="Story user"/>
+          <img src="https://randomuser.me/api/portraits/women/60.jpg" alt="Christiana"/>
           <span>Christiana</span>
         </div>
         <div class="story">
-          <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Story user"/>
+          <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Alan"/>
           <span>Alan</span>
         </div>
       </div>
       <!-- FEED POSTS -->
       <div id="feedPosts" class="insta-feed">
-        <!-- ... same feed posts as before ... -->
         <div class="insta-post" data-likes="43" data-replies='["Great session!","I agree, super useful.","Loved the Q&A."]'>
           <div class="insta-post-bg"></div>
           <div class="insta-post-glass">
@@ -301,7 +300,6 @@
     const contactDetailContent = document.getElementById('contactDetailContent');
     document.querySelectorAll('.contact-card').forEach(function(card){
       card.onclick = function() {
-        // Fill out contact detail
         contactDetailContent.innerHTML = `
           <div style="display:flex;gap:26px;align-items:center;">
             <img src="${card.dataset.avatar}" alt="${card.dataset.name}" style="width:90px;height:90px;border-radius:22px;border:4px solid #d64b43;box-shadow:0 2px 18px #d64b4340;background:#fff;">
